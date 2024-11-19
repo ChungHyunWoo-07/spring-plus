@@ -22,8 +22,13 @@ public class AuthController {
         return authService.signup(signupRequest);
     }
 
-    @PostMapping("/auth/signin")
-    public SigninResponse signin(@Valid @RequestBody SigninRequest signinRequest) {
-        return authService.signin(signinRequest);
-    }
+    /* Spring Security 의 JwtAuthenticationFilter 에서 로그인 기능을 수행하므로
+    * 더이상 아래의 메서드는 사용되지 않음
+    *  */
+
+
+    // @PostMapping("/auth/signin")
+    // public SigninResponse signin(@Valid @RequestBody SigninRequest signinRequest) {
+    //     return authService.signin(signinRequest);
+    // }
 }

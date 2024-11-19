@@ -3,6 +3,7 @@ package org.example.expert.domain.todo.service;
 import java.time.LocalDateTime;
 
 import org.example.expert.client.WeatherClient;
+import org.example.expert.config.security.UserDetailsImpl;
 import org.example.expert.domain.common.dto.AuthUser;
 import org.example.expert.domain.common.exception.InvalidRequestException;
 import org.example.expert.domain.todo.dto.request.TodoSaveRequest;
@@ -28,7 +29,9 @@ public class TodoService {
     private final TodoRepository todoRepository;
     private final WeatherClient weatherClient;
 
-    public TodoSaveResponse saveTodo(AuthUser authUser, TodoSaveRequest todoSaveRequest) {
+    public TodoSaveResponse saveTodo(UserDetailsImpl loginUser, TodoSaveRequest todoSaveRequest) {
+        AuthUser authUser = new AuthUser(loginUser.getId(), loginUser.getUsername(), loginUser.getUser()
+            .getUserRole(), loginUser.getUser().getNickname()); // 아무튼 이렇게하면 됨 근데 지금 반영이 느린것같아요
         User user = User.fromAuthUser(authUser);
 
         String weather = weatherClient.getTodayWeather();
